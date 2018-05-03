@@ -1,3 +1,27 @@
+CREATE TABLE abilities (
+	id INTEGER PRIMARY KEY,
+	name_en VARCHAR,
+	name_jp VARCHAR,
+	name_fr VARCHAR,
+	name_gr VARCHAR
+);
+
+CREATE TABLE items (
+	id INTEGER PRIMARY KEY,
+	name_en VARCHAR,
+	name_jp VARCHAR,
+	name_fr VARCHAR,
+	name_gr VARCHAR
+);
+
+CREATE TABLE types (
+	id INTEGER PRIMARY KEY,
+	name_en VARCHAR,
+	name_jp VARCHAR,
+	name_fr VARCHAR,
+	name_gr VARCHAR
+);
+
 CREATE TABLE species (
 	id INTEGER PRIMARY KEY,
 	name_en VARCHAR,
@@ -10,8 +34,8 @@ CREATE TABLE species (
 	spa SMALLINT,
 	spd SMALLINT,
 	spe SMALLINT,
-	type1 SMALLINT,
-	type2 SMALLINT,
+	type1 SMALLINT REFERENCES types,
+	type2 SMALLINT REFERENCES types,
 	capture_rate SMALLINT,
 	stage SMALLINT,
 	ev_hp SMALLINT,
@@ -20,9 +44,9 @@ CREATE TABLE species (
 	ev_spa SMALLINT,
 	ev_spd SMALLINT,
 	ev_spe SMALLINT,
-	item1 SMALLINT,
-	item2 SMALLINT,
-	item3 SMALLINT,
+	item1 SMALLINT REFERENCES items,
+	item2 SMALLINT REFERENCES items,
+	item3 SMALLINT REFERENCES items,
 	gender_rate SMALLINT,
 	hatch_cycles SMALLINT,
 	base_happiness SMALLINT,
@@ -52,10 +76,10 @@ CREATE TABLE forms (
 
 CREATE TABLE evolution (
 	id INTEGER PRIMARY KEY,
-	species INTEGER,
+	species INTEGER REFERENCES species,
 	method INTEGER,
 	auxiliary INTEGER,
-	target INTEGER,
+	target INTEGER REFERENCES species,
 	target_form SMALLINT,
 	level SMALLINT
 );
@@ -66,7 +90,7 @@ CREATE TABLE moves (
 	name_jp VARCHAR,
 	name_fr VARCHAR,
 	name_gr VARCHAR,
-	type SMALLINT,
+	type SMALLINT REFERENCES types,
 	category VARCHAR,
 	power SMALLINT,
 	accuracy SMALLINT,
@@ -97,38 +121,14 @@ CREATE TABLE moves (
 );
 
 CREATE TABLE levelup (
-	species INTEGER,
-	move INTEGER,
+	species INTEGER REFERENCES species,
+	move INTEGER REFERENCES moves,
 	level SMALLINT
 );
 
 CREATE TABLE egg_moves (
 	species INTEGER,
-	move INTEGER
-);
-
-CREATE TABLE abilities (
-	id INTEGER PRIMARY KEY,
-	name_en VARCHAR,
-	name_jp VARCHAR,
-	name_fr VARCHAR,
-	name_gr VARCHAR
-);
-
-CREATE TABLE items (
-	id INTEGER PRIMARY KEY,
-	name_en VARCHAR,
-	name_jp VARCHAR,
-	name_fr VARCHAR,
-	name_gr VARCHAR
-);
-
-CREATE TABLE types (
-	id INTEGER PRIMARY KEY,
-	name_en VARCHAR,
-	name_jp VARCHAR,
-	name_fr VARCHAR,
-	name_gr VARCHAR
+	move INTEGER REFERENCES moves
 );
 
 CREATE FUNCTION hp_at(base integer, level integer, ev integer, iv integer) RETURNS integer AS $$

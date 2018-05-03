@@ -252,8 +252,8 @@ record_descriptors = {
 
 
 from itertools import zip_longest
-personal = GARCFile('romfs/a/0/1/7')
-text = GARCFile('romfs/a/0/3/2')
+personal = GARCFile('game/romfs/a/0/1/7')
+text = GARCFile('game/romfs/a/0/3/2')
 dsrc = filter(lambda val: len(val) == 0x54, personal.record_iterator())
 
 def pad_itr(itr, value, max_len):

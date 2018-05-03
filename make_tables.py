@@ -6,23 +6,23 @@ from util import *
 from sqlalchemy import create_engine
 
 files = {
-            'move': 'romfs/a/0/1/1',
-            'egg_move': 'romfs/a/0/1/2',
-            'levelup_move': 'romfs/a/0/1/3',
-            'evolution': 'romfs/a/0/1/4',
-            'mega_evolution': 'romfs/a/0/1/5',
-            'personal': 'romfs/a/0/1/7',
-            'item': 'romfs/a/0/1/9',
-            'text_jp': 'romfs/a/0/3/0',
-            'text_jk': 'romfs/a/0/3/1',
-            'text_en': 'romfs/a/0/3/2',
-            'text_fr': 'romfs/a/0/3/3',
-            'text_it': 'romfs/a/0/3/4',
-            'text_gr': 'romfs/a/0/3/5',
-            'text_es': 'romfs/a/0/3/6',
-            'text_kr': 'romfs/a/0/3/7',
-            'text_ct': 'romfs/a/0/3/8',
-            'text_cs': 'romfs/a/0/3/9'
+            'move': 'game/romfs/a/0/1/1',
+            'egg_move': 'game/romfs/a/0/1/2',
+            'levelup_move': 'game/romfs/a/0/1/3',
+            'evolution': 'game/romfs/a/0/1/4',
+            'mega_evolution': 'game/romfs/a/0/1/5',
+            'personal': 'game/romfs/a/0/1/7',
+            'item': 'game/romfs/a/0/1/9',
+            'text_jp': 'game/romfs/a/0/3/0',
+            'text_jk': 'game/romfs/a/0/3/1',
+            'text_en': 'game/romfs/a/0/3/2',
+            'text_fr': 'game/romfs/a/0/3/3',
+            'text_it': 'game/romfs/a/0/3/4',
+            'text_gr': 'game/romfs/a/0/3/5',
+            'text_es': 'game/romfs/a/0/3/6',
+            'text_kr': 'game/romfs/a/0/3/7',
+            'text_ct': 'game/romfs/a/0/3/8',
+            'text_cs': 'game/romfs/a/0/3/9'
 
         }
 
@@ -48,10 +48,10 @@ text_refs = {
         }
 
 game_text = {
-    'name_en': 'game/' + GARCFile(files['text_en']),
-    'name_jp': 'game/' + GARCFile(files['text_jp']),
-    'name_fr': 'game/' + GARCFile(files['text_fr']),
-    'name_gr': 'game/' + GARCFile(files['text_gr'])
+    'name_en': GARCFile(files['text_en']),
+    'name_jp': GARCFile(files['text_jp']),
+    'name_fr': GARCFile(files['text_fr']),
+    'name_gr': GARCFile(files['text_gr'])
 }
 
 def make_text_table(target):
@@ -86,9 +86,8 @@ df_species_names = make_text_table(text_refs['species_names'])
 df_personal = df_personal.join(df_species_names)
 df_form_names = make_text_table(text_refs['form_names'])
 
-df_personal.to_sql('species', engine, if_exists = 'append', index_label = 'id')
-# df_species_names.to_sql('species_names', engine, if_exists = 'append', index_label = 'id')
-df_form_names.to_sql('forms', engine, if_exists = 'append', index_label = 'id')
+# df_personal.to_sql('species', engine, if_exists = 'append', index_label = 'id')
+# df_form_names.to_sql('forms', engine, if_exists = 'append', index_label = 'id')
 
 # Moves
 moves = GARCFile(files['move'])
@@ -98,8 +97,7 @@ df_moves = pd.DataFrame.from_records([to_record(fields, data) for data in dsrc])
 df_move_names = make_text_table(text_refs['move_names'])
 df_moves = df_moves.join(df_move_names)
 
-df_moves.to_sql('moves', engine, if_exists = 'append', index_label = 'id')
-# df_move_names.to_sql('move_names', engine, if_exists = 'append', index_label = 'id')
+# df_moves.to_sql('moves', engine, if_exists = 'append', index_label = 'id')
 
 # Levelup
 levelup = GARCFile(files['levelup_move'])
@@ -111,7 +109,7 @@ for idx, data in enumerate(levelup.record_iterator()):
         records.append({'species': idx, 'move': move, 'level': level})
 df_levelup = pd.DataFrame.from_records(records)
 
-df_levelup.to_sql('levelup', engine, if_exists = 'append', index = False)
+# df_levelup.to_sql('levelup', engine, if_exists = 'append', index = False)
 
 # Egg move
 egg_move = GARCFile(files['egg_move'])
@@ -121,7 +119,7 @@ for idx, data in enumerate(egg_move.record_iterator()):
         records.append({'species': idx, 'move': move})
 
 df_egg_move = pd.DataFrame.from_records(records)
-df_egg_move.to_sql('egg_moves', engine, if_exists = 'append', index = False)
+# df_egg_move.to_sql('egg_moves', engine, if_exists = 'append', index = False)
 
 # Evolution
 evolution = GARCFile(files['evolution'])
@@ -140,16 +138,16 @@ for idx, bts in enumerate(evolution.record_iterator()):
                     'level': level
                 })
 df_evolution = pd.DataFrame.from_records(records)
-df_evolution.to_sql('evolution', engine, if_exists = 'append', index_label = 'id')
+# df_evolution.to_sql('evolution', engine, if_exists = 'append', index_label = 'id')
 
 df_ability_names = make_text_table(text_refs['ability_names'])
-df_ability_names.to_sql('abilities', engine, if_exists = 'append', index_label = 'id')
+# df_ability_names.to_sql('abilities', engine, if_exists = 'append', index_label = 'id')
 
 df_type_names = make_text_table(text_refs['type_names'])
-df_type_names.to_sql('types', engine, if_exists = 'append', index_label = 'id')
+# df_type_names.to_sql('types', engine, if_exists = 'append', index_label = 'id')
 
 df_item_names = make_text_table(text_refs['item_names'])
-df_item_names.to_sql('items', engine, if_exists = 'append', index_label = 'id')
+# df_item_names.to_sql('items', engine, if_exists = 'append', index_label = 'id')
 
 # 0x5bb98e
 tms = [
@@ -173,10 +171,10 @@ tutor = [
 
 
 df_tms = pd.DataFrame({'move': tms})
-df_tms.to_sql('tm_moves', engine, index_label = 'id')
+# df_tms.to_sql('tm_moves', engine, index_label = 'id')
 
 df_tutor = pd.DataFrame({'move': tutor}, index = np.arange(len(tutor)))
-df_tutor.to_sql('tutor_moves', engine, index_label = 'id')
+# df_tutor.to_sql('tutor_moves', engine, index_label = 'id')
 
 def check(bts, n):
     a, b = divmod(n, 8)
@@ -198,7 +196,22 @@ for idx, data in enumerate(dsrc):
         tutor_records.append({'species': idx, 'tutor': c})
 
 df_tm_learnset = pd.DataFrame.from_records(tm_records)
-df_tm_learnset.to_sql('tm_learnset', engine, index = False)
+# df_tm_learnset.to_sql('tm_learnset', engine, index = False)
 
 df_tutor_learnset = pd.DataFrame.from_records(tutor_records)
+# df_tutor_learnset.to_sql('tutor_learnset', engine, index = False)
+
+
+df_ability_names.to_sql('abilities', engine, if_exists = 'append', index_label = 'id')
+df_item_names.to_sql('items', engine, if_exists = 'append', index_label = 'id')
+df_type_names.to_sql('types', engine, if_exists = 'append', index_label = 'id')
+df_personal.to_sql('species', engine, if_exists = 'append', index_label = 'id') # species
+df_form_names.to_sql('forms', engine, if_exists = 'append', index_label = 'id')
+df_evolution.to_sql('evolution', engine, if_exists = 'append', index_label = 'id')
+df_moves.to_sql('moves', engine, if_exists = 'append', index_label = 'id')
+df_levelup.to_sql('levelup', engine, if_exists = 'append', index = False)
+df_egg_move.to_sql('egg_moves', engine, if_exists = 'append', index = False)
+df_tms.to_sql('tm_moves', engine, index_label = 'id')
+df_tutor.to_sql('tutor_moves', engine, index_label = 'id')
+df_tm_learnset.to_sql('tm_learnset', engine, index = False)
 df_tutor_learnset.to_sql('tutor_learnset', engine, index = False)
