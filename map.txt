@@ -1,0 +1,6 @@
+ofs exefs/code.bin -r-x
+om 3 0x100000 0x4b99f0 0x0 -r-x .text
+om 3 0x5b99f0 0xea610 0x4b99f0 -r-- .data
+
+oc /home/ronan/work/self/pokemon/exefs/code.bin
+om-1
