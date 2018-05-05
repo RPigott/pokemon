@@ -201,6 +201,10 @@ df_tm_learnset = pd.DataFrame.from_records(tm_records)
 df_tutor_learnset = pd.DataFrame.from_records(tutor_records)
 # df_tutor_learnset.to_sql('tutor_learnset', engine, index = False)
 
+# df_dex1 = make_text_table(text_refs['pokedex_1'])
+# df_dex2 = make_text_table(text_refs['pokedex_2'])
+# df_classification = make_text_table(text_refs['species_classifications'])
+
 if __name__ == '__main__':
     df_ability_names.to_sql('abilities', engine, if_exists = 'append', index_label = 'id')
     df_item_names.to_sql('items', engine, if_exists = 'append', index_label = 'id')
@@ -215,3 +219,4 @@ if __name__ == '__main__':
     df_tutor.to_sql('tutor_moves', engine, index_label = 'id')
     df_tm_learnset.to_sql('tm_learnset', engine, index = False)
     df_tutor_learnset.to_sql('tutor_learnset', engine, index = False)
+    # df_classification.to_sql('species_class', engine, index_label = 'id')
