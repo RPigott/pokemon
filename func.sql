@@ -6,13 +6,27 @@ $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION hp_min(base integer) RETURNS integer AS $$
 	BEGIN
-		RETURN hp_at(base, 100, 0, 0);
+		CASE
+			WHEN base = 0 THEN
+				RETURN 0;
+			WHEN base = 1 THEN
+				RETURN 1;
+			ELSE
+				RETURN hp_at(base, 100, 0, 0);
+		END CASE;
 	END;
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION hp_max(base integer) RETURNS integer AS $$
 	BEGIN
-		RETURN hp_at(base, 100, 252, 31);
+		CASE
+			WHEN base = 0 THEN
+				RETURN 0;
+			WHEN base = 1 THEN
+				RETURN 1;
+			ELSE
+				RETURN hp_at(base, 100, 252, 31);
+		END CASE;
 	END;
 $$ LANGUAGE plpgsql;
 

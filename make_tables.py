@@ -4,6 +4,8 @@ import struct
 
 from util import *
 from sqlalchemy import create_engine
+import logging
+logger = logging.getLogger(__name__)
 
 files = {
             'move': 'game/romfs/a/0/1/1',
@@ -235,18 +237,32 @@ df_tutor_learnset = pd.DataFrame.from_records(tutor_records)
 # df_classification = make_text_table(text_refs['species_classifications'])
 
 if __name__ == '__main__':
+    logger.info("Dumping abilities")
     df_ability_names.to_sql('abilities', engine, if_exists = 'append', index_label = 'id')
+    logger.info("Dumping items")
     df_item_names.to_sql('items', engine, if_exists = 'append', index_label = 'id')
+    logger.info("Dumping types")
     df_type_names.to_sql('types', engine, if_exists = 'append', index_label = 'id')
+    logger.info("Dumping egg_groups")
     df_egg_groups.to_sql('egg_groups', engine, if_exists = 'append', index_label = 'id')
+    logger.info("Dumping species")
     df_personal.to_sql('species', engine, if_exists = 'append', index_label = 'id') # species
+    logger.info("Dumping forms")
     df_form_names.to_sql('forms', engine, if_exists = 'append', index_label = 'id')
+    logger.info("Dumping evolutions")
     df_evolution.to_sql('evolution', engine, if_exists = 'append', index_label = 'id')
+    logger.info("Dumping moves")
     df_moves.to_sql('moves', engine, if_exists = 'append', index_label = 'id')
+    logger.info("Dumping levelup")
     df_levelup.to_sql('levelup', engine, if_exists = 'append', index = False)
+    logger.info("Dumping egg_moves")
     df_egg_move.to_sql('egg_moves', engine, if_exists = 'append', index = False)
+    logger.info("Dumping tm_moves")
     df_tms.to_sql('tm_moves', engine, index_label = 'id')
+    logger.info("Dumping tutor_moves")
     df_tutor.to_sql('tutor_moves', engine, index_label = 'id')
+    logger.info("Dumping tm_learnset")
     df_tm_learnset.to_sql('tm_learnset', engine, index = False)
+    logger.info("Dumping tutor_learnset")
     df_tutor_learnset.to_sql('tutor_learnset', engine, index = False)
     # df_classification.to_sql('species_class', engine, index_label = 'id')
