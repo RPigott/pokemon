@@ -86,6 +86,14 @@ df_species_names = make_text_table(text_refs['species_names'])
 df_personal = df_personal.join(df_species_names)
 df_form_names = make_text_table(text_refs['form_names'])
 
+df_form_names.loc[:807, 'species'] = np.arange(808)
+df = df_personal.loc[df_personal['multiplicity'] > 1, ['alt_id', 'multiplicity']]
+df['fi'] = np.cumsum(df['multiplicity'] - 1) + 810 - df['multiplicity']
+df['fe'] = np.concatenate([np.array(df.iloc[1:]['fi'] - 1), [df.iloc[-1]['fi']]])
+for idx, row in df.iterrows():
+    df_form_names.loc[int(row['fi']):int(row['fe']), 'species'] =  idx if np.isnan(row['alt_id']) else int(row['alt_id'])
+
+
 # df_personal.to_sql('species', engine, if_exists = 'append', index_label = 'id')
 # df_form_names.to_sql('forms', engine, if_exists = 'append', index_label = 'id')
 

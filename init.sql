@@ -68,6 +68,7 @@ CREATE TABLE species (
 
 CREATE TABLE forms (
 	id INTEGER PRIMARY KEY,
+	species INTEGER REFERENCES species,
 	name_en VARCHAR,
 	name_jp VARCHAR,
 	name_fr VARCHAR,
