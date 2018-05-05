@@ -22,6 +22,14 @@ CREATE TABLE types (
 	name_gr VARCHAR
 );
 
+CREATE TABLE egg_groups (
+	id INTEGER PRIMARY KEY,
+	name_en VARCHAR
+	-- name_jp VARCHAR,
+	-- name_fr VARCHAR,
+	-- name_gr VARCHAR
+);
+
 CREATE TABLE species (
 	id INTEGER PRIMARY KEY,
 	name_en VARCHAR,
@@ -51,8 +59,8 @@ CREATE TABLE species (
 	hatch_cycles SMALLINT,
 	base_happiness SMALLINT,
 	exp_group VARCHAR,
-	egg_group1 SMALLINT,
-	egg_group2 SMALLINT,
+	egg_group1 SMALLINT REFERENCES egg_groups,
+	egg_group2 SMALLINT REFERENCES egg_groups,
 	ability1 SMALLINT,
 	ability2 SMALLINT,
 	ability_hidden SMALLINT,
@@ -131,51 +139,3 @@ CREATE TABLE egg_moves (
 	species INTEGER,
 	move INTEGER REFERENCES moves
 );
-
-CREATE FUNCTION hp_at(base integer, level integer, ev integer, iv integer) RETURNS integer AS $$
-	BEGIN
-		RETURN ((2 * base + iv + (ev / 4)) * level)/100 + level + 10;
-	END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION hp_min(base integer) RETURNS integer AS $$
-	BEGIN
-		RETURN hp_at(base, 100, 0, 0);
-	END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION hp_max(base integer) RETURNS integer AS $$
-	BEGIN
-		RETURN hp_at(base, 100, 252, 31);
-	END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION stat_nil_at(base integer, level integer, ev integer, iv integer) RETURNS integer AS $$
-	BEGIN
-		RETURN (((2 * base + iv + (ev / 4)) * level)/100 + 5);
-	END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION stat_neg_at(base integer, level integer, ev integer, iv integer) RETURNS integer AS $$
-	BEGIN
-		RETURN ((((2 * base + iv + (ev / 4)) * level)/100 + 5) * 9) / 10;
-	END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION stat_pos_at(base integer, level integer, ev integer, iv integer) RETURNS integer AS $$
-	BEGIN
-		RETURN ((((2 * base + iv + (ev / 4)) * level)/100 + 5) * 11) / 10;
-	END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION stat_max(base integer) RETURNS integer AS $$
-	BEGIN
-		RETURN stat_pos_at(base, 100, 252, 31);
-	END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION stat_min(base integer) RETURNS integer AS $$
-	BEGIN
-		RETURN stat_neg_at(base, 100, 0, 0);
-	END;
-$$ LANGUAGE plpgsql;

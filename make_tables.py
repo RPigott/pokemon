@@ -81,6 +81,9 @@ df_personal = pd.DataFrame.from_records([to_record(fields, data) for data in dsr
 # correct type2 duplication
 df_personal.loc[df_personal['type2'] == df_personal['type1'], 'type2'] = None
 
+# correct egg_group2 duplication
+df_personal.loc[df_personal['egg_group2'] == df_personal['egg_group1'], 'egg_group2'] = None
+
 # species names
 df_species_names = make_text_table(text_refs['species_names'])
 df_personal = df_personal.join(df_species_names)
@@ -176,7 +179,25 @@ tutor = [
           495, 270, 271, 478, 472, 283, 200, 278, 289, 446, 285, 477, 502, 432, 710, 707,
           675, 673
 ]
-
+egg_groups = [
+    None,
+    "Monster",
+    "Water 1",
+    "Bug",
+    "Flying",
+    "Field",
+    "Fairy",
+    "Grass",
+    "Human-like",
+    "Water 3",
+    "Mineral",
+    "Amorphous",
+    "Water 2",
+    "Ditto",
+    "Dragon",
+    "Undiscovered",
+]
+df_egg_groups = pd.DataFrame({'name_en': egg_groups})
 
 df_tms = pd.DataFrame({'move': tms})
 # df_tms.to_sql('tm_moves', engine, index_label = 'id')
@@ -217,6 +238,7 @@ if __name__ == '__main__':
     df_ability_names.to_sql('abilities', engine, if_exists = 'append', index_label = 'id')
     df_item_names.to_sql('items', engine, if_exists = 'append', index_label = 'id')
     df_type_names.to_sql('types', engine, if_exists = 'append', index_label = 'id')
+    df_egg_groups.to_sql('egg_groups', engine, if_exists = 'append', index_label = 'id')
     df_personal.to_sql('species', engine, if_exists = 'append', index_label = 'id') # species
     df_form_names.to_sql('forms', engine, if_exists = 'append', index_label = 'id')
     df_evolution.to_sql('evolution', engine, if_exists = 'append', index_label = 'id')
