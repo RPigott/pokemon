@@ -5,6 +5,7 @@ import struct
 from util import *
 from sqlalchemy import create_engine
 import logging
+logging.basicConfig(level = logging.INFO)
 logger = logging.getLogger(__name__)
 
 files = {
@@ -95,8 +96,9 @@ df_form_names.loc[:807, 'species'] = np.arange(808)
 df = df_personal.loc[df_personal['multiplicity'] > 1, ['alt_id', 'multiplicity']]
 df['fi'] = np.cumsum(df['multiplicity'] - 1) + 810 - df['multiplicity']
 df['fe'] = np.concatenate([np.array(df.iloc[1:]['fi'] - 1), [df.iloc[-1]['fi']]])
+df = df.loc[:807]
 for idx, row in df.iterrows():
-    df_form_names.loc[int(row['fi']):int(row['fe']), 'species'] =  idx if np.isnan(row['alt_id']) else int(row['alt_id'])
+    df_form_names.loc[int(row['fi']):int(row['fe']), 'species'] =  idx if np.isnan(row['alt_id']) else np.arange(row['alt_id'], row['alt_id'] + row['multiplicity'] - 1)
 
 
 # df_personal.to_sql('species', engine, if_exists = 'append', index_label = 'id')
