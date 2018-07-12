@@ -73,11 +73,46 @@ Evolution:
 file: romfs/a/0/1/4 0x40 @ 0x4c87
 0x00 0x08 evolution (x8)
   0x00 0x02 method
-    * 0x04 - level
-	* 0x05 - trade
-	* 0x06 - trade w/ item
-	* 0x08 - stone
-	* 0x15 - level w/ move
+	* 0x01 - Friendship
+	* 0x02 - Friendship (Day)
+	* 0x03 - Friendship (Night)
+	* 0x04 - Level
+	* 0x05 - Trade
+	* 0x06 - Trade w/ item
+	* 0x07 - Trade w/ eachother
+	* 0x08 - Stone
+	* 0x09 - Level (atk < def)
+	* 0x0a - Level (atk = def)
+	* 0x0b - Level (atk > def)
+	* 0x0c - Level (Personality)
+	* 0x0d - Level (Personality Alt)
+	* 0x0e - Level (Spawn Shedinja)
+	* 0x10 - Beauty
+	* 0x11 - Stone (Male)
+	* 0x12 - Stone (Female)
+	* 0x13 - Level w/ item (Day)
+	* 0x14 - Level w/ item (Night)
+	* 0x15 - Level w/ move
+	* 0x16 - Level w/ party member
+	* 0x17 - Level (Male)
+	* 0x18 - Level (Female)
+	* 0x19 - Level (Magnetic Location)
+	* 0x1a - Level (Grassy Location)
+	* 0x1b - Level (Icy Location)
+	* 0x1c - Level (Upside Down)
+	* 0x1d - Level w/ move of type
+	* 0x1e - Level w/ party member of type
+	* 0x1f - Level (Rain)
+	* 0x20 - Level (Day)
+	* 0x21 - Level (Night)
+	* 0x22 - Level
+	* 0x24 - Level in specific game
+	* 0x25 - Level (Sun) in specific game
+	* 0x26 - Level (Night) in specific game
+	* 0x27 - Level (Snow)
+	* 0x28 - Special Rockruff
+	* 0x29 - Level (Non-Alola)
+	* 0x2a - Stone (Non-Alola)
   0x02 0x02 auxiliary id
   0x04 0x02 target
   0x06 0x01 target form

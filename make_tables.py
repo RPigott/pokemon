@@ -142,7 +142,7 @@ records = []
 for idx, bts in enumerate(evolution.record_iterator()):
     for k in range(0, len(bts), 0x08):
         evo = bts[k:k+0x08]
-        method, aux, target, form, level = struct.unpack('<3H2B', evo)
+        method, aux, target, form, level = struct.unpack('<3HbB', evo)
         if method:
             records.append({
                     'species': idx,
