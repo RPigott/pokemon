@@ -220,7 +220,7 @@ record_descriptors = {
 
             'move': [
                 Field('type', 0x00, 'B', None, False),
-                # Field('style', 0x01, 'B', None, False),
+				Field('style', 0x01, 'B', None, False),
                 Field('category', 0x02, 'B', replace({0: 'Status', 1: 'Physical', 2: 'Special'}), False),
                 Field('power', 0x03, 'B', replace({0: None}), False),
                 Field('accuracy', 0x04, 'B', replace({101: None}), False),

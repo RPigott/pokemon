@@ -101,6 +101,7 @@ CREATE TABLE moves (
 	name_gr VARCHAR,
 	type SMALLINT REFERENCES types,
 	category VARCHAR,
+	style SMALLINT,
 	power SMALLINT,
 	accuracy SMALLINT,
 	pp SMALLINT,
