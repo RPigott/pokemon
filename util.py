@@ -226,7 +226,7 @@ record_descriptors = {
                 Field('accuracy', 0x04, 'B', replace({101: None}), False),
                 Field('pp', 0x05, 'B', None, False),
                 Field('priority', 0x06, 'b', None, False),
-                # Field((None, None), 0x07, 'B', None, True), # min/max hits
+				Field(['min_hits', 'max_hits'], 0x07, 'B', lambda mm: (mm & 0xf, (mm & 0xf0) >> 4), True), # min/max hits
                 Field('effect', 0x08, 'H', None, False),
                 Field('effect_chance', 0x0a, 'B', None, False),
                 Field('effect_min_turns', 0x0b, 'B', None, False),
