@@ -35,3 +35,23 @@ CREATE MATERIALIZED VIEW species_en AS
       JOIN abilities ab2 ON ((sp.ability2 = ab2.id)))                    
       JOIN abilities ah ON ((sp.ability_hidden = ah.id)))                
    ORDER BY sp.id;
+
+-- Make convenient egg moves table
+CREATE MATERIALIZED VIEW egg_learnset AS
+WITH recursive eml AS (
+	SELECT sp.id, sp.name, sp.form, mv.id AS mvid, mv.name_en AS move FROM species_en AS sp join egg_moves AS el on sp.id = el.species join moves AS mv on el.move = mv.id
+	UNION
+	SELECT ta.id, ta.name, ta.form, mv.id AS mvid, mv.name_en AS move FROM eml join evolution AS ev on eml.id = ev.species join species_en AS ta on ta.id = ev.target join moves AS mv on eml.mvid = mv.id
+) SELECT * FROM eml ORDER BY id, mvid;
+
+-- Make convenient learnset table
+CREATE MATERIALIZED VIEW learnset AS
+SELECT id, name, form, method, mvid, move from (
+	SELECT sp.id, sp.name, sp.form, concat('TM ', tms.id) as method, tms.id + 100 as aux, mv.id as mvid, mv.name_en as move from species_en as sp join tm_learnset as tml on sp.id = tml.species join tm_moves as tms on tml.tm = tms.id join moves as mv on tms.move = mv.id
+	UNION
+	SELECT sp.id, sp.name, sp.form, concat('Level ', level) as method, level as aux, mv.id as mvid, mv.name_en as move from species_en as sp join levelup as lvl on sp.id = lvl.species join moves as mv on lvl.move = mv.id
+	UNION
+	SELECT sp.id, sp.name, sp.form, 'Tutor' as method, null as aux, mv.id as mvid, mv.name_en as move from species_en as sp join tutor_learnset as ttl on sp.id = ttl.species join tutor_moves as ttm on ttl.tutor = ttm.id join moves as mv on ttm.move = mv.id
+	UNION
+	SELECT id, name, form, 'Egg' as method, null as aux, mvid, move from egg_learnset order by id, aux, method, mvid
+) as tbl;
