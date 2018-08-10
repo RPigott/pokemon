@@ -3,7 +3,8 @@ CREATE TABLE abilities (
 	name_en VARCHAR,
 	name_jp VARCHAR,
 	name_fr VARCHAR,
-	name_gr VARCHAR
+	name_gr VARCHAR,
+	name_kr VARCHAR
 );
 
 CREATE TABLE items (
@@ -11,7 +12,8 @@ CREATE TABLE items (
 	name_en VARCHAR,
 	name_jp VARCHAR,
 	name_fr VARCHAR,
-	name_gr VARCHAR
+	name_gr VARCHAR,
+	name_kr VARCHAR
 );
 
 CREATE TABLE types (
@@ -19,7 +21,8 @@ CREATE TABLE types (
 	name_en VARCHAR,
 	name_jp VARCHAR,
 	name_fr VARCHAR,
-	name_gr VARCHAR
+	name_gr VARCHAR,
+	name_kr VARCHAR
 );
 
 CREATE TABLE egg_groups (
@@ -36,6 +39,7 @@ CREATE TABLE species (
 	name_jp VARCHAR,
 	name_fr VARCHAR,
 	name_gr VARCHAR,
+	name_kr VARCHAR,
 	hp SMALLINT,
 	atk SMALLINT,
 	def SMALLINT,
@@ -80,7 +84,8 @@ CREATE TABLE forms (
 	name_en VARCHAR,
 	name_jp VARCHAR,
 	name_fr VARCHAR,
-	name_gr VARCHAR
+	name_gr VARCHAR,
+	name_kr VARCHAR
 );
 
 CREATE TABLE evolution (
@@ -99,6 +104,7 @@ CREATE TABLE moves (
 	name_jp VARCHAR,
 	name_fr VARCHAR,
 	name_gr VARCHAR,
+	name_kr VARCHAR,
 	type SMALLINT REFERENCES types,
 	category VARCHAR,
 	style SMALLINT,

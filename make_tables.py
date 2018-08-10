@@ -54,7 +54,8 @@ game_text = {
     'name_en': GARCFile(files['text_en']),
     'name_jp': GARCFile(files['text_jp']),
     'name_fr': GARCFile(files['text_fr']),
-    'name_gr': GARCFile(files['text_gr'])
+    'name_gr': GARCFile(files['text_gr']),
+	'name_kr': GARCFile(files['text_kr'])
 }
 
 def make_text_table(target):
