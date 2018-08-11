@@ -19,7 +19,7 @@ CREATE MATERIALIZED VIEW species_en AS
      sp.spa,                                                             
      sp.spd,                                                             
      sp.spe,                                                             
-     (((((sp.hp + sp.atk) + sp.def) + sp.spa) + sp.spd) + sp.spe) AS bst,
+     (sp.hp + sp.atk + sp.def + sp.spa + sp.spd + sp.spe) AS bst,
      ab1.name_en AS ability1,                                            
      ab2.name_en AS ability2,                                            
      ah.name_en AS hidden_ability,                                       
