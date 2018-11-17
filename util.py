@@ -192,7 +192,7 @@ record_descriptors = {
                 Field('ability1', 0x18, 'B', None, False),
                 Field('ability2', 0x19, 'B', None, False),
                 Field('ability_hidden', 0x1a, 'B', None, False),
-                Field('escape_rate', 0x1b, 'B', None, False),
+                Field('call_rate', 0x1b, 'B', None, False),
                 Field('alt_id', 0x1c, 'I', fill_none, False),
                 Field('multiplicity', 0x20, 'B', None, False),
                 Field('color', 0x21, 'B', replace({
